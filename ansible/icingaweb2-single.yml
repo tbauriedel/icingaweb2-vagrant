@@ -1,0 +1,32 @@
+---
+- hosts: all
+  become: true
+  vars:
+    # MySQL
+    mysql_root_password: login0815!
+    mysql_databases:
+      - name: icingaweb2
+    mysql_users:
+      - name: icingaweb2
+        host: "localhost"
+        password: icingaweb2
+        priv: "*.*:ALL"
+
+    # Icinga Web 2
+    icingaweb2_db:
+      type: mysql
+      name: icingaweb2
+      host: 127.0.0.1
+      user: icingaweb2
+      password: icingaweb2
+    icingaweb2_db_import_schema: true
+
+    icingaweb2_admin_username: icingaadmin
+    icingaweb2_admin_password: icingaadmin
+
+  roles:
+    - geerlingguy.mysql
+    - icinga.icinga.repos
+    - icinga.icinga.icingaweb2
+
+
